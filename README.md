@@ -6,6 +6,7 @@
 - [Service-Oriented Architecture (SOA)](#service-oriented-architecture-soa)
 - [Technologies Used](#technologies-used)
 - [Installation](#installation)
+- [Assumptions](#Assumptions)
 
 ## Service-Oriented Architecture (SOA)
 
@@ -48,3 +49,23 @@ python manage.py migrate
 
 ## Run the Development Server
 python manage.py runserver
+
+## Assumptions
+
+In the development of this bank loan management application, the following assumptions have been made:
+
+1. **Loan Providers:**
+   - The total budget provided by loan providers is the maximum amount that can be loaned out to customers.
+   - Loan providers do not have individual limits on how much they can contribute to the total loan fund.
+
+2. **Loan Customers:**
+   - The loan amount requested by a customer cannot exceed the available funds from loan providers.
+   - Each loan should be within the range of loan conficration
+
+3. **Bank Personnel:**
+   - Bank personnel are responsible for setting the maximum and minimum loan amounts, interest rates, and loan durations.
+   - Interest rates are fixed for the entire duration of the loan.
+   - Bank Personnel is the one required to approve loan Applications, Fund, and Loan Payments
+
+4. **Interest Calculation:**
+   - The application uses simple interest calculation for all loans.

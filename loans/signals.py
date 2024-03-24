@@ -11,7 +11,7 @@ def validate_total_funds(sender, instance, **kwargs):
     max_amount = instance.loan_configuration.max_loan_amount
     min_amount = instance.loan_configuration.min_loan_amount
     if instance.amount > max_amount or instance.amount < min_amount:
-            raise ValidationError("The total loan amount is not in the correct rang.")
+            raise ValidationError("The total loan amount is not in the correct range.")
     if instance.status == 'approved':
         total_loans = LoanApplication.objects.filter(
             status='approved'
@@ -25,5 +25,3 @@ def validate_total_funds(sender, instance, **kwargs):
         )['total'] or 0
         if total_loans + instance.amount > total_funds:
             raise ValidationError("The total loan amount cannot exceed the total available funds.")
-        if instance.amount > max_amount or instance.amount < min_amount:
-            raise ValidationError("The total loan amount is not in the correct rang.")
