@@ -5,7 +5,7 @@
 
 - [Service-Oriented Architecture (SOA)](#service-oriented-architecture-soa)
 - [Technologies Used](#technologies-used)
--[Additional Features](#Additional-Features)
+- [Additional Features](#Additional-Features)
 - [Installation](#installation)
 - [Assumptions](#Assumptions)
 
