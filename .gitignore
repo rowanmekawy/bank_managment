@@ -161,3 +161,4 @@ cython_debug/
 
 # Ignore compiled Python files
 *.pyc
+*.log

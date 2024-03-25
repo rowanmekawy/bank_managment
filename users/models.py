@@ -1,5 +1,6 @@
 
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractBaseUser, Group, Permission, PermissionsMixin
 from .managers import UserProfileManager
 # Create your models here.
@@ -43,13 +44,46 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     
 class BankPersonnel(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='bank_personnel')
-    position = models.CharField(max_length=255)    
+    position = models.CharField(max_length=255)   
+
+    def __str__(self):
+        return self.user.username
+
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            super().save(*args, **kwargs)
+            return
+        if self.user.role != 'bank_personnel':
+            raise ValidationError("user does not have the required role")
+        super().save(*args, **kwargs) 
     
 class LoanProvider(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='loan_provider')
     total_budget = models.DecimalField(max_digits=10, decimal_places=2, default=0)  
 
+    def __str__(self):
+        return self.user.username
+
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            super().save(*args, **kwargs)
+            return
+        if self.user.role != 'loan_provider':
+            raise ValidationError("user does not have the required role")
+        super().save(*args, **kwargs) 
+
 class LoanCustomer(models.Model):
     user = models.OneToOneField(UserProfile, on_delete=models.CASCADE, related_name='loan_customer')
     credit_score = models.IntegerField(default=0)    
+
+    def __str__(self):
+        return self.user.username
+
+    def save(self, *args, **kwargs):
+        if self.pk is not None:
+            super().save(*args, **kwargs)
+            return
+        if self.user.role != 'loan_customer':
+            raise ValidationError("user does not have the required role")
+        super().save(*args, **kwargs) 
 

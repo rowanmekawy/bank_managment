@@ -22,6 +22,7 @@ This project is built using Service-Oriented Architecture (SOA), an architectura
 
 - [Django](https://www.djangoproject.com/): A high-level Python web framework.
 - [Django REST Framework](https://www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs.
+- **Vue.js**: A progressive JavaScript framework used for building user interfaces. In this project, Vue.js is used to create dynamic and interactive components for the web application for user's Loan Payment.
 - Swagger: Used for API documentation.
 
 ## Installation
@@ -32,6 +33,8 @@ Follow these steps to set up and run the project locally.
 Make sure you have the following prerequisites installed on your machine:
 
 - [Python](https://www.python.org/) (version 3.8.10)
+- Node.js - You can download it from [Node.js official website](https://nodejs.org/).
+- npm - Comes with Node.js, but you can check if it's installed by running `npm -v` in your terminal.
 
 
 ## Clone the Repository
