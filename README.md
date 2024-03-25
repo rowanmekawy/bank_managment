@@ -5,6 +5,7 @@
 
 - [Service-Oriented Architecture (SOA)](#service-oriented-architecture-soa)
 - [Technologies Used](#technologies-used)
+-[Additional Features](#Additional-Features)
 - [Installation](#installation)
 - [Assumptions](#Assumptions)
 
@@ -24,6 +25,13 @@ This project is built using Service-Oriented Architecture (SOA), an architectura
 - [Django REST Framework](https://www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs.
 - **Vue.js**: A progressive JavaScript framework used for building user interfaces. In this project, Vue.js is used to create dynamic and interactive components for the web application for user's Loan Payment.
 - Swagger: Used for API documentation.
+
+## Additional Features
+
+- **Throttling:** Implemented throttling to limit the number of requests to the API, enhancing the security and performance of the application.
+- **Atomic Transactions:** Used Django's `@transaction.atomic` decorator to ensure that database transactions are atomic, providing data integrity and consistency.
+- **Logging:** Integrated logging throughout the application to track important events and errors, aiding in debugging and monitoring.
+
 
 ## Installation
 Follow these steps to set up and run the project locally.
