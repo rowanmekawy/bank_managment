@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <v-alert v-if="errorMessage" type="error" dismissible @click="errorMessage = ''">
+        {{ errorMessage }}
+      </v-alert>
     <v-row>
       <v-col>
         <v-card>
@@ -51,6 +54,7 @@ import LoanApplicationService from '@/services/LoanApplicationService';
 export default {
   data() {
     return {
+      errorMessage: '',
       payments: [],
       loans: [],
       headers: [
@@ -73,7 +77,10 @@ export default {
     fetchLoanPayments() {
       LoanPaymentService.getLoanPayments()
         .then(response => this.payments = response.data)
-        .catch(error => console.error('Error fetching loan payments:', error));
+        .catch(error => {
+          this.errorMessage = 'Error fetching loan payments. Please try again later.';
+          console.error('Error fetching loan payments:', error)
+        });
     },
     openCreateDialog() {
       this.createDialog = true;
@@ -85,7 +92,10 @@ export default {
           this.createDialog = false;
           this.fetchLoanPayments();
         })
-        .catch(error => console.error('Error creating loan payment:', error));
+        .catch(error => {
+          this.errorMessage = 'Error fcreating loan payments. Please try again later.';
+          console.error('Error creating loan payment:', error)
+        });
         
     },
     fetchLoans() {
@@ -94,6 +104,7 @@ export default {
           this.loans = response.data;
         })
         .catch(error => {
+          this.errorMessage = 'Error fetching loans. Please try again later.';
           console.error('Error fetching loans:', error);
         });
     },

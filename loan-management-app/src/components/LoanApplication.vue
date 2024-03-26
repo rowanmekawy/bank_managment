@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <v-alert v-if="errorMessage" type="error" dismissible @click="errorMessage = ''">
+        {{ errorMessage }}
+      </v-alert>
     <v-row>
       <v-col>
         <v-card>
@@ -53,6 +56,7 @@ import LoanConfigurationService from '@/services/LoanConfigurationService';
 export default {
   data() {
     return {
+      errorMessage: '',
       applications: [],
       loanConfigurations: [],
       newApplication: {
@@ -74,19 +78,23 @@ export default {
     fetchLoanApplications() {
       LoanApplicationService.getLoanApplications()
         .then(response => {
+          this.errorMessage = '';
           this.applications = response.data;
         })
         .catch(error => {
+          this.errorMessage = 'Error fetching loan applications. Please try again later.';
           console.error('Error fetching loan applications:', error);
         });
     },
     createLoanApplication() {
       LoanApplicationService.createLoanApplication(this.newApplication)
         .then(response => {
+          this.errorMessage = '';
           this.applications.push(response.data);
           this.closeCreateDialog();
         })
         .catch(error => {
+          this.errorMessage = 'Error creating loan application. Please try again later.';
           console.error('Error creating loan application:', error);
         });
     },
@@ -102,9 +110,11 @@ export default {
       console.log('Fetching loan configurations...');
       LoanConfigurationService.getLoanConfigurations()
         .then(response => {
+          this.errorMessage = '';
           this.loanConfigurations = response.data;
         })
         .catch(error => {
+          this.errorMessage = 'Error fetching loan configurations. Please try again later.';
           console.error('Error fetching loan configurations:', error);
         });
     },

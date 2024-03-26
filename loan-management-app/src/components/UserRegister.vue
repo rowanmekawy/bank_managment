@@ -2,6 +2,9 @@
   <v-container>
     <!-- Registration Form -->
     <v-form @submit.prevent="register">
+      <v-alert v-if="errorMessage" type="error" dismissible @click="errorMessage = ''">
+        {{ errorMessage }}
+      </v-alert>
       <v-text-field
         v-model="newUser.username"
         label="Username"
@@ -28,17 +31,20 @@ export default {
         username: '',
         password: '',
       },
+      errorMessage: '',
     };
   },
   methods: {
     register() {
       AuthService.register(this.newUser)
         .then(() => {
+          this.errorMessage = '';
           // Registration successful, redirect to login page
           this.$router.push('/user-login');
         })
         .catch(error => {
           console.error('Registration error:', error);
+          this.errorMessage = 'Registration error. Please try again later.';
         });
     },
   },
