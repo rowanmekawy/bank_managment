@@ -18,14 +18,16 @@ from django.urls import path, include
 from django.contrib.auth.decorators import login_required
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from rest_framework.routers import DefaultRouter
-from loans.views import LoanApplicationViewSet, FundViewSet
+from loans.views import LoanApplicationViewSet, FundViewSet, LoanConfigurationList
 from transactions.views import LoanPaymentViewSet
+from users.views import UserProfileListCreate
 from rest_framework.authtoken.views import ObtainAuthToken
 
 router = DefaultRouter()
 router.register(r'loan-applications', LoanApplicationViewSet, basename='loan-application')
 router.register(r'funds', FundViewSet, basename='fund')
 router.register(r'loan-payment', LoanPaymentViewSet, basename='loan-payment')
+router.register(r'loan-configuration', LoanConfigurationList, basename='loan-configuration')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +35,7 @@ urlpatterns = [
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path("schema/swagger-ui/", login_required(SpectacularSwaggerView.as_view(url_name="schema")), name="swagger-ui"),
     path('schema/redoc/', SpectacularRedocView.as_view(), name='redoc'),
+    path('users/', UserProfileListCreate.as_view(), name='user-list-create'),
     path('', include(router.urls)),
 
 ]

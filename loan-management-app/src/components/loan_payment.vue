@@ -24,7 +24,14 @@
         <v-card-text>
           <v-form>
             <v-text-field v-model="newPayment.amount_paid" label="Amount Paid"></v-text-field>
-            <v-text-field v-model="newPayment.loan" label="Loan ID"></v-text-field>
+            <!-- <v-text-field v-model="newPayment.loan" label="Loan ID"></v-text-field> -->
+            <v-select
+            v-model="newPayment.loan"
+            :items="loans"
+            item-value="id"
+            :item-text="item => `Amount: ${item.amount}`"
+            label="Loan"
+          ></v-select>
           </v-form>
         </v-card-text>
         <v-card-actions>
@@ -39,11 +46,13 @@
 
 <script>
 import LoanPaymentService from '@/services/LoanPaymentService';
+import LoanApplicationService from '@/services/LoanApplicationService';
 
 export default {
   data() {
     return {
       payments: [],
+      loans: [],
       headers: [
         { text: 'ID', value: 'id' },
         { text: 'Amount Paid', value: 'amount_paid' },
@@ -68,6 +77,7 @@ export default {
     },
     openCreateDialog() {
       this.createDialog = true;
+      this.fetchLoans();
     },
     createLoanPayment() {
       LoanPaymentService.createLoanPayment(this.newPayment)
@@ -77,6 +87,15 @@ export default {
         })
         .catch(error => console.error('Error creating loan payment:', error));
         
+    },
+    fetchLoans() {
+      LoanApplicationService.getLoanApplications()
+        .then(response => {
+          this.loans = response.data;
+        })
+        .catch(error => {
+          console.error('Error fetching loans:', error);
+        });
     },
   },
 };

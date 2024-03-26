@@ -3,9 +3,15 @@ from rest_framework import permissions, status, viewsets
 from rest_framework.response import Response
 from rest_framework.throttling import UserRateThrottle, AnonRateThrottle
 from users.permissions import IsBankPersonnelOrLoanCustomer, IsBankPersonnel, IsBankPersonnelOrLoanProvider
-from .serializers import LoanApplicationSerializer, FundSerializer, FundCreateSerializer, LoanApplicationCreateSerializer
+from .serializers import (
+    LoanApplicationSerializer, 
+    FundSerializer, 
+    FundCreateSerializer, 
+    LoanApplicationCreateSerializer,
+    LoanConfigurationSerializer
+)
 from .services import LoanApplicationServices, FundServices
-from .models import LoanApplication, Fund
+from .models import LoanApplication, Fund, LoanConfiguration
 
 logger = logging.getLogger("django")
 
@@ -105,3 +111,9 @@ class FundViewSet(viewsets.ModelViewSet):
         except Exception as e:
             logger.error("Failed to delete fund %s for user %s: %s", kwargs.get('pk'), request.user, str(e))
             return Response({"error": str(e)}, status=400)
+        
+class LoanConfigurationList(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = LoanConfiguration.objects.all()
+    serializer_class = LoanConfigurationSerializer        
+    

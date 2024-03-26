@@ -1,18 +1,3 @@
-<!-- <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
-</template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script> -->
 
 <style>
 #app {
@@ -28,17 +13,19 @@ export default {
 
 <template>
   <v-app>
-    <LoanPayment />
+    <router-view />
   </v-app>
 </template>
 
-<script>
+<!-- <script>
 import LoanPayment from './components/loan_payment.vue';
+import Login from './components/Login'
 
 export default {
   name: 'App',
   components: {
     LoanPayment,
+    Login,
   },
 };
-</script>
+</script> -->

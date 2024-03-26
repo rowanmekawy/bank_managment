@@ -22,4 +22,9 @@ class FundSerializer(serializers.ModelSerializer):
 class FundCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Fund
-        exclude = ('status','provider')      
+        exclude = ('status','provider')   
+
+class LoanConfigurationSerializer(serializers.ModelSerializer): 
+    class Meta:
+        model = models.LoanConfiguration
+        fields = '__all__'     
